@@ -1,15 +1,15 @@
 # La Picá del Sabor Chileno - Sitio Web
 
-Este repositorio contiene el sitio web oficial del restaurante "La Picá del Sabor Chileno", especializado en comida tradicional chilena ubicado en Caldera, Región de Atacama.
+Este repositorio contiene una tarea escolar, sobre un sitio web oficial para el restaurante "La Picá del Sabor Chileno", especializado en comida tradicional chilena ubicado en Caldera, Región de Atacama.
 
-## 🏢 Sobre el Restaurante
+## Sobre el Restaurante
 
 **Razón Social:** Restaurante La Picá del Sabor Chileno S.A.  
 **Dirección:** Av. Costa de la Plata #1234, Caldera, Región de Atacama  
 **Representante Legal:** Marco Hernández Riquelme  
 **Horario:** Lunes a Domingo de 12:00 a 20:00 hrs
 
-## 🍽️ Especialidades del Menú
+## Especialidades del Menú
 
 ### Platos Principales
 - **Bistec a lo pobre** - $12.900
@@ -23,7 +23,7 @@ Este repositorio contiene el sitio web oficial del restaurante "La Picá del Sab
 - **Caldillo de Congrio** - $12.000
 - **Asado a la Chilena** - $15.000
 
-## 📞 Contacto
+## Contacto
 
 **Teléfono:** +56 9 1234 5678  
 **Email:** contacto@iacc.cl  
@@ -31,4 +31,4 @@ Este repositorio contiene el sitio web oficial del restaurante "La Picá del Sab
 
 ---
 
-*¡Ven y disfruta del auténtico sabor chileno!* 🇨🇱
+*¡Ven y disfruta del auténtico sabor chileno!* 
