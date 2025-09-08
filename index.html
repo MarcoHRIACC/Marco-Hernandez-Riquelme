@@ -1,10 +1,405 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Proyecto Académico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Restaurante de comida tradicional chilena en Caldera, Región de Atacama">
+    <title>La Picá del Sabor Chileno - Restaurante Tradicional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&family=Roboto:wght@400;500&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primario: #6d1ed5; --color-secundario: #1ed5aa; --color-terciario: #d52b1e; --color-verde: #2c5e1a;
+            --color-fondo: linear-gradient(135deg, #f9f3e9 0%, #e8f4f8 100%); --color-texto: #333;
+            --sombra: 0 4px 15px rgba(0,0,0,0.1); --degradado-primario: linear-gradient(135deg, #6d1ed5 0%, #8e44ad 100%);
+            --degradado-secundario: linear-gradient(135deg, #1ed5aa 0%, #27ae60 100%); --degradado-terciario: linear-gradient(135deg, #d52b1e 0%, #e67e22 100%);
+            --fuente-titulos: 'Montserrat', sans-serif; --fuente-subtitulos: 'Open Sans', sans-serif;
+            --fuente-texto: 'Roboto', sans-serif; --fuente-secundaria: 'Lora', serif;
+        }
+        body { font-family: var(--fuente-texto); line-height: 1.6; color: var(--color-texto); margin: 0; padding: 0; background: var(--color-fondo); background-attachment: fixed; }
+        
+        /* Estructura Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header especial para la grid */
+        .grid-header {
+            grid-column: 1 / -1;
+            background: var(--degradado-primario);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            box-shadow: var(--sombra);
+            border: 2px solid #7b389e;
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+        }
+        
+        /* Items de la grid - ESTILO UNIFICADO PARA TODAS LAS SECCIONES */
+        .grid-item {
+            background: linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+            border: 1px solid #ddd;
+        }
+        
+        /* Tipografía */
+        h1 { margin: 0 0 0.5em; font-size: 2.8rem; font-family: var(--fuente-titulos); font-weight: 700; letter-spacing: -0.5px; 
+             text-shadow: 2px 2px 4px rgba(0,0,0,0.3); position: relative; z-index: 1; }
+        h2 { font-family: var(--fuente-titulos); font-size: 2rem; font-weight: 600; margin: 1.5em 0 0.8em; color: var(--color-primario); 
+             border-bottom: 3px solid var(--color-terciario); padding-bottom: 8px; display: inline-block; }
+        h3 { font-family: var(--fuente-subtitulos); font-size: 1.5rem; font-weight: 500; margin: 1.2em 0 0.6em; color: var(--color-verde); font-style: italic; }
+        
+        /* Componentes específicos */
+        .destacado { font-weight: 600; color: var(--color-terciario); padding: 0 5px; }
+        
+        /* Tablas */
+        table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 1.5rem 0; border-radius: 12px; overflow: hidden; 
+               box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08); font-family: var(--fuente-subtitulos); }
+        th { background: var(--degradado-primario); color: white; font-weight: 600; font-size: 1.1rem; padding: 1rem; text-align: left; 
+             text-transform: uppercase; letter-spacing: 0.5px; }
+        td { padding: 1rem; border-bottom: 1px solid #e2e8f0; vertical-align: top; font-size: 1rem; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: #f1f5f9; }
+        .precio { font-weight: 700; color: var(--color-terciario); font-size: 1.1rem; white-space: nowrap; }
+        
+        /* Promociones - AHORA CON ESTILO UNIFICADO */
+        .promociones h2 { 
+            color: var(--color-primario); 
+            border-bottom: 3px solid var(--color-terciario);
+        }
+        .promociones ul { 
+            list-style-type: none; 
+            padding: 0; 
+        }
+        .promociones li { 
+            padding: 1.2rem; 
+            margin-bottom: 1rem; 
+            border-radius: 8px; 
+            border-left: 4px solid var(--color-primario);
+            background-color: rgba(109, 30, 213, 0.05);
+            transition: transform 0.3s ease; 
+        }
+        .promociones li:hover { 
+            transform: translateX(5px); 
+            background-color: rgba(109, 30, 213, 0.08); 
+        }
+        
+        /* Plato de la semana */
+        .plato-contenido { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 20px; }
+        .plato-info { flex: 1; min-width: 300px; }
+        .plato-galeria { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 20px; }
+        .imagen-plato { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+                       transition: transform 0.3s ease; border: 2px solid var(--color-secundario); }
+        .imagen-plato:hover { transform: scale(1.02); box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-color: var(--color-primario); }
+        
+        /* Videos */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Relación 16:9 */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        /* Footer */
+        footer { grid-column: 1 / -1;
+            display: flex; justify-content: center; flex-direction: column; align-items: center; margin-top: 40px; padding: 25px; 
+            background: var(--degradado-secundario); color: white; border-radius: 12px; box-shadow: var(--sombra); position: relative; overflow: hidden; }
+        footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+                        background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%); pointer-events: none; }
+        
+        /* Formulario */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: var(--fuente-texto);
+        }
+        button[type="submit"] {
+            background: var(--degradado-terciario);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+        button[type="submit"]:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .quienes-somos {
+                grid-column: span 2;
+            }
+            
+            .plato-contenido {
+                flex-direction: row;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-areas:
+                    "header header header"
+                    "quienes quienes quienes"
+                    "platos bebidas postres"
+                    "especialidades promociones plato-semana"
+                    "videos videos formulario"
+                    "footer footer footer";
+            }
+            
+            .grid-header { grid-area: header; }
+            .quienes-somos { grid-area: quienes; }
+            .platos { grid-area: platos; }
+            .bebidas { grid-area: bebidas; }
+            .postres { grid-area: postres; }
+            .especialidades { grid-area: especialidades; }
+            .promociones { grid-area: promociones; }
+            .plato-semana { grid-area: plato-semana; }
+            .videos { grid-area: videos; }
+            .formulario { grid-area: formulario; }
+            footer { grid-area: footer; }
+        }
+        
+        /* Estilos para impresión */
+        @media print {
+            * {
+                color: #000 !important;
+                background: #fff !important;
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr !important;
+                display: block !important;
+                padding: 0 !important;
+            }
+            
+            .grid-item, footer {
+                box-shadow: none !important;
+                border: 1px solid #000 !important;
+                page-break-inside: avoid;
+                margin-bottom: 10mm;
+            }
+            
+            .imagen-plato, .grid-header::after, footer::before, .video-container {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Tarea Semana #4</h1>
+    <div class="grid-container">
+        <header class="grid-header">
+            <h1>.::La Picá del Sabor Chileno::.</h1>
+            <p># Auténtica Gastronomía Nacional #</p>
+        </header>
+        
+        <section id="quienes-somos" class="grid-item quienes-somos">
+            <h2>.::Quiénes Somos::.</h2>
+            <p>En <span class="destacado">La Picá del Sabor Chileno</span>, nos dedicamos a rescatar y ofrecer los sabores más auténticos de la gastronomía de nuestro país. Utilizamos ingredientes frescos y de la más alta calidad, siguiendo recetas tradicionales que han sido transmitidas de generación en generación.</p>
+            <p>Somos especialistas en la preparación de platos típicos chilenos, con ingredientes frescos y recetas tradicionales, que han pasado del campo a nuestras mesas, ofreciendo una experiencia única de sabor y tradición nacional.</p>
+            <p><span class="destacado">Razón Social:</span> Restaurante La Picá del Sabor Chileno S.A.</p>
+            <p><span class="destacado">Dirección:</span> Av. Costa de la Plata # 1234, Caldera, Región de Atacama.</p>
+            <p><span class="destacado">Representante Legal:</span> Marco Hernández Riquelme.</p>
+            <p><span class="destacado">Horario:</span> Lunes a Domingo de 12:00 a 20:00 hrs.</p>
+        </section>
+
+
+        <section id="platos" class="grid-item platos">
+            <h2>Platos</h2>
+            <h3>Carnes nacionales e internacionales</h3>
+            <table>
+                <thead><tr><th style="width:30%">Plato</th><th style="width:50%">Descripción</th><th style="width:20%">Precio</th></tr></thead>
+                <tbody>
+                    <tr><td>Bistec a lo pobre</td><td>Bistec de vacuno, 2 huevos fritos, cebollas caramelizadas y papas fritas crocantes</td><td class="precio">$12.900</td></tr>
+                    <tr><td>Cazuela de vacuno</td><td>Tradicional cazuela con carne, choclo, zapallo y papas</td><td class="precio">$10.500</td></tr>
+                    <tr><td>Charquicán</td><td>Guiso de carne deshidratada con papas y verduras</td><td class="precio">$7.500</td></tr>
+                </tbody>
+            </table>
+            
+            <h2>Pescados y Mariscos</h2>
+            <h3>Directamente de nuestras costas</h3>
+            <table>
+                <thead><tr><th style="width:30%">Plato</th><th style="width:50%">Descripción</th><th style="width:20%">Precio</th></tr></thead>
+                <tbody>
+                    <tr><td>Congrio frito</td><td>Congrio colorado, acompañado de ensalada chilena y arroz</td><td class="precio">$13.500</td></tr>
+                    <tr><td>Pastel de jaiba</td><td>Delicioso pastel de jaibas con pan rallado y queso gratinado</td><td class="precio">$11.900</td></tr>
+                    <tr><td>Curanto en olla</td><td>Mezcla de mariscos, carnes y papas cocidas al vapor (para 2 personas)</td><td class="precio">$22.000</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="bebidas" class="grid-item bebidas">
+            <h2>Bebidas</h2>
+            <h3>Bebidas Tradicionales</h3>
+            <table>
+                <thead><tr><th style="width:30%">Bebida</th><th style="width:50%">Descripción</th><th style="width:20%">Precio</th></tr></thead>
+                <tbody>
+                    <tr><td>Mote con huesillo</td><td>Bebida tradicional con trigo mote y duraznos deshidratados</td><td class="precio">$3.900</td></tr>
+                    <tr><td>Jugo de fruta natural</td><td>Elaborado con frutas frescas de temporada</td><td class="precio">$3.500</td></tr>
+                    <tr><td>Chicha artesanal</td><td>Bebida fermentada tradicional de la zona central</td><td class="precio">$4.200</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="postres" class="grid-item postres">
+            <h2>Postres</h2>
+            <h3>Preparados como en casa</h3>
+            <table>
+                <thead><tr><th style="width:30%">Postre</th><th style="width:50%">Descripción</th><th style="width:20%">Precio</th></tr></thead>
+                <tbody>
+                    <tr><td>Leche asada</td><td>Clásico postre chileno de leche horneada con caramelo</td><td class="precio">$4.800</td></tr>
+                    <tr><td>Mote con huesillo</td><td>Versión postre con más mote y duraznos</td><td class="precio">$3.900</td></tr>
+                    <tr><td>Panqueques con manjar</td><td>Panqueques caseros rellenos de manjar casero</td><td class="precio">$5.200</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="especialidades" class="grid-item especialidades">
+            <h2>Especialidades de la Casa</h2>
+            <table>
+                <thead><tr><th style="width:30%">Especialidad</th><th style="width:50%">Descripción</th><th style="width:20%">Precio</th></tr></thead>
+                <tbody>
+                    <tr><td>Pastel de Choclo Tradicional</td><td>Preparado con choclo fresco molido, mezclado con albahaca y un relleno de pino (carne, cebolla, huevo duro y aceitunas), horneado hasta dorar.</td><td class="precio">$10.000</td></tr>
+                    <tr><td>Caldillo de Congrio</td><td>Inspirado en el poema de Pablo Neruda, preparado con congrio fresco, zanahorias, cebollas, ajo, vino blanco y un toque de crema.</td><td class="precio">$12.000</td></tr>
+                    <tr><td>Asado a la Chilena</td><td>Cortes de carne premium marinado con hierbas chilenas y cocido a las brasas, acompañado de pebre tradicional.</td><td class="precio">$15.000</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="promociones" class="grid-item promociones">
+            <h2>Promociones Especiales</h2>
+            <ul>
+                <li>
+                    <h3>Menú Ejecutivo</h3>
+                    <p><span class="destacado">Descripción:</span> Entrada + Plato principal + Postre + Bebida gaseosa CCU</p>
+                    <p><span class="destacado">Precio especial:</span> $15.900 (Ahorra hasta $4.000)</p>
+                    <p><span class="destacado">Válido:</span> Lunes a Viernes de 12:00 a 16:00 hrs</p>
+                </li>
+                <li>
+                    <h3>Martes de Mariscos</h3>
+                    <p><span class="destacado">Descripción:</span> 15% de descuento en todos nuestros platos de mariscos</p>
+                    <p><span class="destacado">Válido:</span> Todos los martes</p>
+                </li>
+                <li>
+                    <h3>Jueves de Vino</h3>
+                    <p><span class="destacado">Descripción:</span> 2x1 en copas de vino tinto y blanco de la casa</p>
+                    <p><span class="destacado">Válido:</span> Todos los jueves después de las 18:00 hrs</p>
+                </li>
+            </ul>
+        </section>
+
+        <section id="plato-semana" class="grid-item plato-semana">
+            <h2>Plato de la Semana</h2>
+            <div class="plato-contenido">
+                <div class="plato-info">
+                    <h3>Pastel de Choclo Tradicional</h3>
+                    <p>Esta semana destacamos nuestro <span class="destacado">Pastel de Choclo</span>, una preparación emblemática de la cocina chilena que combina los sabores más auténticos de nuestra tierra.</p>
+                    <div class="plato-origen">
+                        <h4>Origen e Historia:</h4>
+                        <p>Este plato tiene sus raíces en la zona central de Chile, donde las familias campesinas celebraban la cosecha del maíz preparando esta delicia. Hoy lo mantenemos vivo como tributo a nuestras tradiciones.</p>
+                    </div>
+                </div>
+                <div class="plato-galeria">
+                    <figure class="plato-imagen">
+                        <img src="imagenes/pastel-choclo-1.jpg" alt="Pastel de Choclo servido en paila de greda" class="imagen-plato">
+                        <figcaption>Presentación tradicional en paila de greda</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section id="videos" class="grid-item videos">
+            <h2>Videos Relacionados</h2>
+            
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/-s6YbcSTwxQ?rel=0&modestbranding=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+            </div>
+            
+            <h3>Preparación del Pastel de Choclo Tradicional</h3>
+            <p>Aprende cómo preparamos nuestro emblemático Pastel de Choclo, desde la selección de los ingredientes hasta el horneado final, siguiendo la receta tradicional chilena.</p>
+        </section>
+
+        <section id="formulario" class="grid-item formulario">
+            <h2>Formulario de Contacto</h2>
+            <form>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha de reserva:</label>
+                    <input type="date" id="fecha" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea id="mensaje" rows="4"></textarea>
+                </div>
+                <button type="submit">Enviar Reserva</button>
+            </form>
+        </section>
+
+        <footer>
+            <p>© 2025 La Picá del Sabor Chileno - Todos los derechos reservados</p>
+            <p>Reservas: +56 9 1234 5678 | contacto@iacc.cl</p>
+        </footer>
+    </div>
 </body>
 </html>
